@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona Główna</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Witaj na stronie głównej!</h1>
+
+        {% if user.is_authenticated %}
+            <p class="welcome-message">Witaj, {{ user.username }}!</p>
+            <a href="{% url 'logout' %}" class="btn">Wyloguj się</a>
+        {% else %}
+            <div class="auth-links">
+                <a href="{% url 'login' %}" class="btn">Zaloguj się</a> |
+                <a href="{% url 'register' %}" class="btn">Zarejestruj się</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
