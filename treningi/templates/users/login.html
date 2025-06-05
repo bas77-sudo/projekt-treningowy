@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logowanie</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Logowanie</h2>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <p>
+                {{ form.username.label_tag }} {{ form.username }}
+            </p>
+            <p>
+                {{ form.password.label_tag }} {{ form.password }}
+            </p>
+            <button type="submit">Zaloguj się</button>
+        </form>
+
+        <a href="{% url 'register' %}">Nie masz konta? Zarejestruj się</a>
+    </div>
+</body>
+

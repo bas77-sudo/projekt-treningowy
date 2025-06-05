@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-login.css">
+    <title>LogMyFit - Rejestracja</title>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <img class="logo" src="../images/logo.png" alt="Logo LogMyFit">
+            <h1>LogMyFit</h1>
+        </div>
+    </header>
+    <div class="main">
+        <h1 class="greeting">Dołącz do społecznośći liczącej [n] użytkowników.</h1>
+        <div class="form-box">
+            <form action="verification.html" method="post">
+                <p>Nazwa użytkownika</p>
+                <input type="text" placeholder="User123">
+                <p>E-mail</p>
+                <input type="text" placeholder="example@gmail.com">
+                <p>Hasło</p>
+                <input type="password" placeholder="*****">
+                <p>Powtórz hasło</p>
+                <input type="password" placeholder="*****">
+                <textarea readonly>reCaptcha (TODO)</textarea>
+                <input type="submit" value="Załóż konto">
+                <p>Masz już konto? <a href="login.html">Zaloguj się</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

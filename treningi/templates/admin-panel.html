@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>LogMyFit - Admin Panel</title>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <img class="logo" src="../images/logo.png" alt="Logo LogMyFit">
+            <h1>LogMyFit</h1>
+        </div>
+        <div class="right">
+            <div class="streak">
+                <h3>7</h3>
+                <h4>dni</h4>
+            </div>
+            <div class="level">
+                <h3>Poziom</h3>
+                <h4>0/100 XP</h4>
+            </div>
+            <div class="profile">
+                <a href="">
+                    <img src="../images/profile.svg" alt="Profil">
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <h1 class="greeting">Panel Administratora</h1>
+        <hr>
+        <h2>Plany Treningowe <a href="">+ Dodaj</a></h2>
+        <hr>
+        <div class="training_plans">
+            <div class="training">
+                <p class="title">Kręgosłup</p>
+                <img src="../images/spine.png" alt="Kręgosłup">
+                <a href=""><> Edytuj <></a>
+                <button>- Usuń -</button>
+            </div>
+            <div class="training">
+                <p class="title">Plecy</p>
+                <img src="../images/back.png" alt="Plecy">
+                <a href=""><> Edytuj <></a>
+                <button>- Usuń -</button>
+            </div>
+            <div class="training">
+                <p class="title">Biceps</p>
+                <img src="../images/biceps.png" alt="Biceps">
+                <a href=""><> Edytuj <></a>
+                <button>- Usuń -</button>
+            </div>
+            <div class="training">
+                <p class="title">Stamina</p>
+                <img src="../images/stamina.png" alt="Stamina">
+                <a href=""><> Edytuj <></a>
+                <button>- Usuń -</button>
+            </div>
+            <div class="training">
+                <p class="title">Nogi</p>
+                <img src="../images/legs.png" alt="Nogi">
+                <a href=""><> Edytuj <></a>
+                <button>- Usuń -</button>
+            </div>
+        </div>
+        <h2>Utwórz wyzwanie globalne</h2>
+        <hr>
+        <label>Ćwiczenie:</label>
+        <select name="" id="">
+            <option>Brzuszki</option>
+            <option>Pompki</option>
+            <option>Przysiady</option>
+            <option>Trucht</option>
+            <option>Pajacyki</option>
+        </select>
+        <br>
+        <label>Liczba powtórzeń/Czas w sekundach</label>
+        <input type="number" name="" id="">
+        <br>
+        <label>Liczba punktów XP</label>
+        <input type="number" name="" id="">
+        <br>
+        <button>Dodaj</button>
+        <h2>Najpopularniejsze treningi</h2>
+        <hr>
+        <div class="popular_trainings">
+            <div class="training">
+                <p class="title">Biceps</p>
+                <img src="../images/biceps.png" alt="Biceps">
+                <p class="score">15%</p>
+            </div>
+            <div class="training">
+                <p class="title">Stamina</p>
+                <img src="../images/stamina.png" alt="Stamina">
+                <p class="score">12%</p>
+            </div>
+            <div class="training">
+                <p class="title">Plecy</p>
+                <img src="../images/back.png" alt="Plecy">
+                <p class="score">10%</p>
+            </div>
+        </div>
+        <h2>Najpopularniejsze ćwiczenia</h2>
+        <hr>
+        <div class="popular_exercises">
+            <div class="training">
+                <p class="title">Pompki</p>
+                <img src="../images/exercise/pushup.png" alt="Pompki">
+                <p class="score">25%</p>
+            </div>
+            <div class="training">
+                <p class="title">Bieganie</p>
+                <img src="../images/exercise/running.png" alt="Bieganie">
+                <p class="score">20%</p>
+            </div>
+            <div class="training">
+                <p class="title">Brzuszki</p>
+                <img src="../images/exercise/crunch.png" alt="Brzuszki">
+                <p class="score">18%</p>
+            </div>
+        </div>
+        <h2>Konsola (!tymczasowe)</h2>
+        <div class="console">
+            <input type="text" placeholder="input">
+            <button>Wyślij</button>
+            <textarea readonly>output</textarea>
+        </div>
+    </div>
+</body>
+</html>

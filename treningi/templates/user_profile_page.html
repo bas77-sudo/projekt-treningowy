@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    {% csrf_token %}
+
+    <link rel="stylesheet" href="{% static 'css/style_header.css' %}">
+    
+    <title>LogMyFit</title>
+    
+</head>
+<body>
+      <header>
+         <div class="left">
+            <a href="{% url 'home_page' %}">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="Logo LogMyFit">
+            </a>
+            <h1>LogMyFit - Witaj, {{ user.username }}!</h1>
+         </div>
+         <div class="right">
+            <div class="streak">
+               <h3>7</h3>
+               <h4>dni</h4>
+            </div>
+            <div class="level">
+               <h3>Poziom</h3>
+               <h4>{{ user.user_score_xp }}/100 XP</h4>
+            </div>
+            <div class="profile">
+               <img src="{% static 'images/profile.svg' %}" alt="Profil">
+
+                  <div class="sub-menu-wrap" id="subMenu">
+                     <div class="sub-menu">
+                        <div class="user-info">
+                           <h3>{{ user.username }}</h3>
+                           <hr>
+                           <a class="sub-link-menu" href="{% url 'user_profile_page' %}">
+                              <p>Profil</p>
+                              <span>></span>
+                           </a>
+                           <a class="sub-link-menu" href="#">
+                              <p>Ranking</p>
+                              <span>></span>
+                           </a>
+                           <a class="sub-link-menu" href="{% url 'logout' %}">
+                              <p>Wyloguj</p>
+                              <span>></span>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+         </div>
+      </header>
+    <h1>Profil użytkownika {{ user.username }}</h1>
+    <div class="main">
+        <h2>Twoje statystyki:</h2>
+        <p><strong>Wykonane treningi:</strong> {{ total_workouts }}</p>
+        <p><strong>Łączny czas treningów:</strong> {{ total_time_spent }} minut</p>
+        <p><strong>Spalone kalorie:</strong> {{ total_calories_burned }} kcal</p>
+        <br>
+
+        <h2>Historia wykonanych treningów:</h2>
+        <ul>
+            {% for stat in workouts_history %}
+            <li>
+                <strong>{{ stat.workout.name }}</strong>
+                {% if stat.workout.image %}
+                <img class="workout-img" src="{{ stat.workout.image.url }}" alt="{{ stat.workout.name }}" onclick="openModal('modal-{{ workout.id }}')">
+                {% endif %}
+                <p>Poziom trudności: {{ stat.workout.difficulty_level }}</p>
+                <p>Punkty: {{ stat.workout.score_xp }}</p>
+            </li>
+            {% empty %}
+                <p>Brak wykonanych treningów</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+
+    <script src="{% static 'js/modal.js' %}"></script>
+</body>
+</html>

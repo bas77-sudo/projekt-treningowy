@@ -1,0 +1,134 @@
+/* treningi kontenery */
+.workout-placement{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.main-home{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.workout-list{
+    background-color: #f9f9f9;
+    width: 500px;
+    height: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.workout-list:hover{
+    transform: scale(1.05);
+}
+
+.workout-img{
+    height: 350px;
+    max-width: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* napisy do treningow kontenerow */
+.workout-title{
+    text-transform: capitalize;
+    padding-bottom: 15px;
+    /* padding-top: 2em; */
+}
+
+.section-title{
+    padding-left: 10px;
+}
+
+
+
+
+
+/*do klikania na obrazek treningu*/
+.modal{
+    display: none; 
+    position: fixed; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    height: 470px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
+}
+
+.modal-content ul{
+    list-style: none;
+    padding: 0;
+}
+
+/* nowe */
+.modal-content ul li{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.modal-content ul li img{
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.modal-content ul li strong{
+    font-size: 16px;
+}
+
+
+.close{
+    position: absolute;
+    color: red;
+    font-size: 40px;
+    cursor: pointer;
+    top: 5px;
+    right: 15px;
+
+}
+
+.workout-img:hover{
+    cursor: pointer;
+}
+
+.exercise-img{
+    width: 40px;
+    width: 40px;
+    
+}
+
+.modal-content button{
+    margin-top: auto;
+    background: #319fff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.exercise-modal{
+    text-align: center;
+}

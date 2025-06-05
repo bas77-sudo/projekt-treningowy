@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {% load static %}
+      {% csrf_token %}
+
+      <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+      <link rel="stylesheet" href="{% static 'css/style_home_page.css' %}">
+      <link rel="stylesheet" href="{% static 'css/style_header.css' %}">
+      <title>LogMyFit</title>
+   </head>
+   <body>
+      <header>
+         <div class="left">
+            <a href="{% url 'home_page' %}">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="Logo LogMyFit">
+            </a>
+            <h1>LogMyFit - Witaj, {{ user.username }}!</h1>
+         </div>
+         <div class="right">
+            <div class="streak">
+               <h3>7</h3>
+               <h4>dni</h4>
+            </div>
+            <div class="level">
+               <h3>Poziom</h3>
+               <h4>{{ user.user_score_xp }}/100 XP</h4>
+            </div>
+            <div class="profile">
+               <img src="{% static 'images/profile.svg' %}" alt="Profil">
+
+                  <div class="sub-menu-wrap" id="subMenu">
+                     <div class="sub-menu">
+                        <div class="user-info">
+                           <h3>{{ user.username }}</h3>
+                           <hr>
+                           <a class="sub-link-menu" href="{% url 'user_profile_page' %}">
+                              <p>Profil</p>
+                              <span>></span>
+                           </a>
+                           <a class="sub-link-menu" href="#">
+                              <p>Ranking</p>
+                              <span>></span>
+                           </a>
+                           <a class="sub-link-menu" href="{% url 'logout' %}">
+                              <p>Wyloguj</p>
+                              <span>></span>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+         </div>
+      </header>
+      <br>
+      <h1 class="section-title">Proponowane treningi</h1>
+      <div class="main-home">
+         <div class="workout-placement">
+            {% for workout in workouts %}
+            <div class="workout-list">
+               <h2 class="workout-title">{{ workout.name }}</h2>
+               {% if workout.image %}
+               <img class="workout-img" src="{{ workout.image.url }}" alt="{{ workout.name }}" onclick="openModal('modal-{{ workout.id }}')">
+               {% endif %}
+               <p>Poziom trudności: {{ workout.difficulty_level }}</p>
+               <p>Punkty: {{ workout.score_xp }}</p>
+               <p>Data: {{ workout.created_at }}</p>
+            </div>
+            <!--wyswietla szczegoly przy kliknieciu na obrazek treningu-->
+            {% endfor %}
+         </div>
+         {% for workout in workouts %}
+         <div id="modal-{{workout.id}}" class="modal">
+            <div class="modal-content">
+               <span class="close" onclick="closeModal('modal-{{ workout.id }}')">×</span>
+               <h2 class="workout-title">{{ workout.name }}</h2>
+               <p>Opis: {{ workout.description }}</p>
+               <p>Poziom: {{ workout.difficulty_level }}</p>
+               <h3>ćwiczenia:</h3>
+               <br>
+               <ul>
+                  {% for exercise in workout.exercises.all %}
+                  <li>
+                     {% if workout.image %}
+                     <img src="{{ exercise.image.url }}" alt="{{ exercise.name }}">
+                     {% else %}
+                     <p>Brak obrazu cwiczenia</p>
+                     {% endif %}
+                     <strong class="exercise-modal">{{ exercise.name }}</strong> – {{ exercise.repetitions }} powtórzeń x {{ exercise.sets }}
+                  </li>
+               
+               {% endfor %}
+               </ul>
+               <br>
+            <button data-id="{{ workout.id }}" onclick="doWorkout(this.dataset.id)">Wykonaj</button>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+      <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+      <script src="{% static 'js/modal.js' %}"></script>
+   </body>
+</html>

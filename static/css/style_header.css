@@ -1,0 +1,252 @@
+body{
+    font-family: Arial;
+    margin:0;
+    min-width: 650px;
+    background: #eee;
+}
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+}
+header{
+    height: 5em;
+    padding: 1em;
+    box-shadow: 0 4px 4px #888;
+    background: #fff;
+}
+header .left{
+    float: left;
+}
+header .right{
+    float: right;
+}
+.logo{
+    height: 5em;
+    float: left;
+}
+header h1{
+    font-size: 2em;
+    float: left;
+    margin: .65em;
+}
+.streak{
+    border: 2px solid #db7500;
+    color: #fff;
+    background: #ff9720;
+    border-radius: 3em;
+    min-width: 4em;
+    height: calc(3em - 4px);
+    margin: 1em;
+    float: left;
+}
+.level{
+    border: 2px solid #1382e4;
+    background: #319fff;
+    color: #fff;
+    border-radius: 3em;
+    min-width: 10em;
+    height: calc(3em - 4px);
+    margin: 1em 0;
+    float: left;
+}
+.streak h3, .level h3, .streak h4, .level h4{
+    width: 100%;
+    text-align: center;
+}
+.streak h3, .level h3{
+    margin-top: 2px;
+}
+.profile{
+    float: left;
+    margin: 1em;
+    position: relative;
+    z-index: 10;
+}
+.profile img{
+    height: 3em;
+}
+
+.profile:hover{
+    cursor: pointer;
+}
+.main{
+    padding: 2em;
+    position: relative;
+}
+
+.greeting{
+    color: #222;
+}
+hr{
+    margin-top: 0;
+    margin-bottom: 2em;
+    color: #222;
+}
+h2{
+    margin-top: 2em;
+}
+.main h2 a{
+    text-decoration: none;
+    background: #080;
+    color: #fff;
+    padding: 0 1em;
+    border-radius: 20px;
+}
+.training_plans{
+    width: 100%;
+    max-height: 626px;
+    overflow-y: scroll;
+}
+.training{
+    box-shadow: 1px 2px 4px #888;
+    border-radius: .5em;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: .5em 1em;
+    background: #fff;
+    width: 200px;
+}
+.training .title, .score{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    margin: .5em;
+}
+.training img{
+    height: 8em;
+}
+.training a{
+    text-align: center;
+    text-decoration: none;
+    background: #319fff;
+    padding: .5em;
+    margin: .5em;
+    width: 134px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: .25em;
+}
+.training button{
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    background: #f44;
+    padding: .5em;
+    margin: .5em;
+    width: 150px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: .25em;
+}
+button:hover{
+    cursor: pointer;
+}
+.popular_trainings, .popular_exercises{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.console input, .console textarea{
+    border: 0;
+    padding: 0;
+    width: 100%;
+    word-break: break-word;
+    background: #ddd;
+    padding: .5em 0;
+    font-size: large;
+}
+.console input{
+    width: calc(100% - 150px);
+    float: left;
+}
+.console button{
+    background: #319fff;
+    color: #fff;
+    width: 150px;
+    border: 0;
+    padding: .5em 0;
+    font-size: large;
+}
+.console textarea{
+    background: #fff;
+    min-height: 300px;
+    resize: none;
+}
+
+
+/* grafika usera - menu */
+.sub-menu-wrap{
+    margin-top: 40px;
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 180px;
+    z-index: 20;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+
+.sub-menu {
+    background-color: #fff;
+    padding: 10px;
+    margin: 0px;
+    border-radius: 8px;
+}
+
+.user-info h3{
+    padding: 10px 0;
+    text-align: center;
+    font-size: 22px;
+}
+
+.sub-menu hr{
+   border: 0;
+   height: 1px; 
+   width: 100%;
+   background: #ccc;
+   margin: 5px 0 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+.user-info h2{
+    font-weight: 500;
+}
+
+.sub-link-menu{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ff9720;
+    /* margin: 2px 0; */
+    font-size: 22px;
+}
+
+.sub-link-menu p{
+    width: 100%;
+}
+
+.sub-link-menu span{
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+
+.sub-link-menu:hover span{
+    transform: translateX(5px);
+}
+
+.sub-link-menu:hover p{
+    font-weight: 600;
+}
+
+

@@ -1,0 +1,144 @@
+.alert {
+    color: white;
+    background-color: #dc3545;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #dc3545; /* Czerwone obramowanie wokół tekstu */
+    margin-bottom: 10px;
+    display: inline-block; /* Ważne - aby obramowanie nie rozciągało się na całą szerokość */
+    font-weight: bold;
+}
+
+.messages {
+    margin: 20px 0;
+    padding: 0; /* Usuwamy padding, aby komunikat nie miał zewnętrznego marginesu */
+    text-align: center;
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.alert.alert-danger {
+    font-weight: bold;
+}
+
+.form-errors ul {
+    color: red;
+    list-style-type: none;
+}
+
+.form-errors li {
+    margin: 5px 0;
+}
+
+button {
+    margin-top: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 300px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.welcome-message {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.auth-links {
+    margin-top: 20px;
+}
+
+.auth-links a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    width: 200px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
