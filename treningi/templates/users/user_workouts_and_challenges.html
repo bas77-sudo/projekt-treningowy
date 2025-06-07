@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Strona Główna</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twoje treningi i wyzwania</title>
+    {% load static custom_tags %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <style>
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
             background: #f2f2f2;
         }
-
         .container {
             width: 100%;
             max-width: 1000px;
@@ -22,8 +21,6 @@
             position: relative;
             z-index: 1;
         }
-
-        /* Fixed header z powitaniem i przyciskiem menu */
         .header-wrapper {
             position: fixed;
             top: 0;
@@ -41,34 +38,22 @@
             border-bottom: 1px solid #ddd;
             box-sizing: border-box;
         }
-
         .welcome-text {
             margin: 0;
             font-weight: 600;
             font-size: 18px;
             color: #222;
         }
-
-        /* Reszta zawartości scrollowana pod headerem */
         .main-content {
-            margin-top: 60px; /* wysokość header-wrapper */
+            margin-top: 60px;
             max-height: calc(100vh - 60px);
             overflow-y: auto;
             padding-right: 10px;
         }
-
-        header {
-            background-color: #111;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
         h1, h2 {
             margin-top: 30px;
             color: #222;
         }
-
         .card {
             background: #fff;
             border-radius: 10px;
@@ -77,11 +62,9 @@
             margin-bottom: 20px;
             transition: transform 0.2s ease;
         }
-
         .card:hover {
             transform: translateY(-3px);
         }
-
         .btn {
             background-color: #007bff;
             color: white;
@@ -93,41 +76,19 @@
             cursor: pointer;
             border: none;
         }
-
         ul {
             padding-left: 20px;
             list-style-type: none;
         }
-
         li {
             margin-bottom: 8px;
         }
-
         p {
             font-size: 18px;
             color: #333;
             text-align: center;
             margin-top: 20px;
         }
-
-        @media (max-width: 768px) {
-            .card {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        .status {
-            display: block;
-            margin-top: 15px;
-            color: green;
-            font-weight: bold;
-        }
-
-        /* Przycisk Menu */
         .open-sidebar-btn {
             background-color: #007bff;
             border: none;
@@ -139,8 +100,6 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
             width: auto;
         }
-
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -156,11 +115,9 @@
             z-index: 1200;
             overflow-y: auto;
         }
-
         .sidebar.open {
             transform: translateX(0);
         }
-
         .sidebar a {
             display: block;
             color: white;
@@ -169,12 +126,9 @@
             font-weight: 600;
             border-bottom: 1px solid #444;
         }
-
         .sidebar a:hover {
             background-color: #444;
         }
-
-        /* Overlay */
         .overlay {
             position: fixed;
             top: 0;
@@ -187,7 +141,6 @@
             transition: opacity 0.3s ease;
             z-index: 1100;
         }
-
         .overlay.show {
             opacity: 1;
             visibility: visible;
@@ -195,16 +148,14 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     {% if user.is_authenticated %}
         <div class="header-wrapper">
             <p class="welcome-text">Witaj, {{ user.username }}!</p>
-            <button class="open-sidebar-btn" onclick="toggleSidebarHome()" aria-label="Otwórz menu">Menu</button>
+            <button class="open-sidebar-btn" onclick="toggleSidebar()" aria-label="Otwórz menu">Menu</button>
         </div>
-
         <div class="main-content">
-            <h2>Dostępne treningi</h2>
+            <h2>Twoje treningi</h2>
             {% for workout in workouts %}
                 <div class="card">
                     <h3>{{ workout.name }}</h3>
@@ -215,42 +166,38 @@
                             <li>{{ we.exercise.name }} – {{ we.exercise.description }}</li>
                         {% endfor %}
                     </ul>
-                    <button onclick="toggleWorkout({{ workout.id }}, this)">
-                        {% if workout.id in user_workouts %}
-                            ❌ Usuń z moich treningów
-                        {% else %}
-                            ➕ Dodaj do moich treningów
-                        {% endif %}
-                    </button>
+                    {% if workout.id in user_workouts %}
+                        <button type="button" onclick="removeWorkout({{ workout.id }}, this)">❌ Usuń z moich treningów</button>
+                    {% endif %}
                 </div>
             {% empty %}
-                <p>Brak dostępnych treningów.</p>
+                <p>Nie masz przypisanych treningów.</p>
             {% endfor %}
-
-            <h2>Dostępne wyzwania</h2>
+            <h2>Twoje wyzwania</h2>
             {% for challenge in challenges %}
                 <div class="card">
                     <h3>{{ challenge.name }}</h3>
                     <p>{{ challenge.description }}</p>
-                    <p>Start: {{ challenge.start_date|date:"d-m-Y H:i" }}</p>
-                    <p>Koniec: {{ challenge.end_date|date:"d-m-Y H:i" }}</p>
                     <strong>Ćwiczenia:</strong>
                     <ul>
                         {% for ce in challenge.challengeexercise_set.all %}
                             <li>{{ ce.exercise.name }} – {{ ce.exercise.description }}</li>
                         {% endfor %}
                     </ul>
-                    <button onclick="toggleChallenge({{ challenge.id }}, this)">
-                        {% if challenge.id in user_challenges %}
-                            ❌ Usuń z moich wyzwań
-                        {% else %}
-                            ➕ Dodaj do moich wyzwań
-                        {% endif %}
-                    </button>
+                    {% if challenge.id in user_challenges %}
+                      {% with user_challenge=user_challenges|dict_get:challenge.id %}
+                        <p>Postęp: <span id="progress-{{ user_challenge.id }}">{{ user_challenge.progress }}</span>/{{challenge.duration }}</p>
+
+                        <button type="button" onclick="updateProgress({{ user_challenge.id }}, 1)">➕</button>
+                        <button type="button" onclick="updateProgress({{ user_challenge.id }}, -1)">➖</button>
+                        <button type="button" onclick="removeChallenge({{ challenge.id }}, this)">❌ Usuń z moich wyzwań</button>
+                      {% endwith %}
+                    {% endif %}
                 </div>
             {% empty %}
-                <p>Brak dostępnych wyzwań.</p>
+                <p>Nie masz przypisanych wyzwań.</p>
             {% endfor %}
+
         </div>
     {% else %}
         <div class="card">
@@ -259,27 +206,23 @@
         </div>
     {% endif %}
 </div>
-
-<!-- Sidebar -->
 <div id="sidebar" class="sidebar" role="navigation" aria-label="Panel boczny">
     <a href="{% url 'home' %}">Powrót do strony głównej</a>
     <a href="{% url 'user_workouts_and_challenges' %}">Twoje treningi i wyzwania</a>
     <a href="{% url 'logout' %}">Wyloguj się</a>
 </div>
-
-<!-- Overlay -->
-<div id="overlay" class="overlay" onclick="toggleSidebarHome()" tabindex="-1" aria-hidden="true"></div>
-
+<div id="overlay" class="overlay" onclick="toggleSidebar()" tabindex="-1" aria-hidden="true"></div>
 <script>
-    function toggleSidebarHome() {
+    function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         sidebar.classList.toggle('open');
         overlay.classList.toggle('show');
     }
-
-    function toggleWorkout(workoutId, buttonElement) {
-        fetch("{% url 'toggle_workout' %}", {
+    function removeWorkout(workoutId, buttonElement) {
+        console.log('removeWorkout called, workoutId:', workoutId);
+        console.log('buttonElement:', buttonElement);
+        fetch("{% url 'remove_workout' %}", {
             method: "POST",
             headers: {
                 "X-CSRFToken": '{{ csrf_token }}',
@@ -289,18 +232,14 @@
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'added') {
-                buttonElement.innerText = "❌ Usuń z moich treningów";
-                alert("Trening dodany!");
-            } else if (data.status === 'removed') {
-                buttonElement.innerText = "➕ Dodaj do moich treningów";
+            if (data.status === 'removed') {
+                buttonElement.parentElement.style.display = 'none';
                 alert("Trening usunięty!");
             }
         });
     }
-
-    function toggleChallenge(challengeId, buttonElement) {
-        fetch("{% url 'toggle_challenge' %}", {
+    function removeChallenge(challengeId, buttonElement) {
+        fetch("{% url 'remove_challenge' %}", {
             method: "POST",
             headers: {
                 "X-CSRFToken": '{{ csrf_token }}',
@@ -310,16 +249,59 @@
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'added') {
-                buttonElement.innerText = "❌ Usuń z moich wyzwań";
-                alert("Wyzwanie dodane!");
-            } else if (data.status === 'removed') {
-                buttonElement.innerText = "➕ Dodaj do moich wyzwań";
+            if (data.status === 'removed') {
+                buttonElement.parentElement.style.display = 'none';
                 alert("Wyzwanie usunięte!");
             }
+        });
+    }
+<!--    function updateProgress(userChallengeId, delta) {-->
+<!--        fetch("{% url 'update_progress' %}", {-->
+<!--            method: "POST",-->
+<!--            headers: {-->
+<!--                "X-CSRFToken": '{{ csrf_token }}',-->
+<!--                "Content-Type": "application/x-www-form-urlencoded"-->
+<!--            },-->
+<!--            body: `user_challenge_id=${userChallengeId}&delta=${delta}`-->
+<!--        })-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--            if(data.status === 'success') {-->
+<!--                // zaktualizuj tekst postępu na stronie-->
+<!--                const progressText = document.querySelector(`#progress-${userChallengeId}`);-->
+<!--                if(progressText) {-->
+<!--                    progressText.textContent = data.new_progress;-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+    function updateProgress(userChallengeId, delta) {
+        console.log("Wywołanie updateProgress:", userChallengeId, delta);
+        fetch("{% url 'update_progress' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": '{{ csrf_token }}',
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `user_challenge_id=${userChallengeId}&delta=${delta}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Odpowiedź z serwera:", data);
+            if(data.status === 'success') {
+                const progressText = document.querySelector(`#progress-${userChallengeId}`);
+                if(progressText) {
+                    progressText.textContent = data.new_progress;
+                }
+            } else {
+                alert("Błąd podczas aktualizacji postępu.");
+            }
+        })
+        .catch(error => {
+            console.error("Błąd fetch:", error);
+            alert("Coś poszło nie tak.");
         });
     }
 </script>
 </body>
 </html>
-

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dostępne wyzwania</title>
+</head>
+<body>
+<h2>Dostępne wyzwania</h2>
+<ul>
+  {% for challenge in challenges %}
+    <li>
+      {{ challenge.name }}
+      <button onclick="toggleChallenge({{ challenge.id }}, this)">
+        {% if challenge.id in user_challenges %}
+          ❌ Usuń z moich wyzwań
+        {% else %}
+          ➕ Dodaj do moich wyzwań
+        {% endif %}
+      </button>
+    </li>
+  {% endfor %}
+</ul>
+
+<script>
+function toggleChallenge(challengeId, buttonElement) {
+    fetch("{% url 'toggle_challenge' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "challenge_id=" + challengeId
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'added') {
+            buttonElement.innerText = "❌ Usuń z moich wyzwań";
+            alert("Wyzwanie dodane!");
+        } else if (data.status === 'removed') {
+            buttonElement.innerText = "➕ Dodaj do moich wyzwań";
+            alert("Wyzwanie usunięte!");
+        }
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Dostępne treningi</h2>
+{% for workout in workouts %}
+    <div>
+        <h3>{{ workout.name }}</h3>
+        <button onclick="toggleWorkout({{ workout.id }}, this)">
+            {% if workout in user.workouts.all %}
+                ❌ Usuń z moich treningów
+            {% else %}
+                ➕ Dodaj do moich treningów
+            {% endif %}
+        </button>
+    </div>
+{% endfor %}
+
+<script>
+function toggleWorkout(workoutId, buttonElement) {
+    fetch("{% url 'toggle_workout' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": '{{ csrf_token }}',
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "workout_id=" + workoutId
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'added') {
+            buttonElement.innerText = "❌ Usuń z moich trenigów";
+            alert("Trening dodany!");
+        } else if (data.status === 'removed') {
+            buttonElement.innerText = "➕ Dodaj do moich wyzwań";
+            alert("Trening usunięty!");
+        }
+    });
+}
+</script>
+
+</body>
+</html>

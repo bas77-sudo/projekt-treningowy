@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Wybierz trening do zalogowania</h2>
+  <form method="get">
+    <label for="workout_id">Wybierz trening:</label>
+    <select name="workout_id" id="workout_id">
+      {% for workout in workouts %}
+        <option value="{{ workout.id }}" {% if workout == selected_workout %}selected{% endif %}>
+          {{ workout.name }}
+        </option>
+      {% endfor %}
+    </select>
+    <button type="submit">Pokaż ćwiczenia</button>
+  </form>
+
+  {% if selected_workout %}
+    <h3>Ćwiczenia w treningu "{{ selected_workout.name }}":</h3>
+    <ul>
+      {% for exercise in exercises %}
+        <li>{{ exercise.name }} — {{ exercise.description }}</li>
+      {% endfor %}
+    </ul>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="workout_id" value="{{ selected_workout.id }}">
+      <button type="submit">Zapisz ten trening jako wykonany</button>
+    </form>
+  {% endif %}
+{% endblock %}
+

@@ -3,7 +3,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib import admin
 from .models import Workout,Category, MuscleGroup, Exercise, Challenge, LoggedWorkout, \
     PersonalRecord, UserProgress, Notification, WorkoutStatistics, AdminReport, \
-    DifficultyLevel, Comment, CommentRating, ProfilePicture, UserSession
+    DifficultyLevel, Comment, CommentRating, ProfilePicture, UserSession, WorkoutExercise, \
+    LoggedWorkoutExercise, UserWorkout, UserChallenge, ChallengeHistory, WorkoutHistory
 
 @admin.register(User)
 class CustomUserAdmin(BaseUserAdmin):
@@ -24,12 +25,18 @@ class CustomUserAdmin(BaseUserAdmin):
         ),
     )
 
+class WorkoutExerciseInline(admin.TabularInline):
+    model = WorkoutExercise
+    extra = 1  # Liczba dodatkowych pustych formularzy
+    fields = ('exercise', 'duration_minutes', 'repetitions', 'sets', 'weight')  # Pola do wyświetlenia w formularzu
 
 @admin.register(Workout)
 class WorkoutAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'difficulty_level']
-    filter_horizontal = ('exercises',)
     search_fields = ['name']
+    list_filter = ['difficulty_level']
+    inlines = [WorkoutExerciseInline]
+
 
 admin.site.register(Category)
 
@@ -40,7 +47,7 @@ class MuscleGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Exercise)
 class ExerciseAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'duration_minutes', 'repetitions', 'sets', 'weight']
+    list_display = ['name', 'category']
     search_fields = ['name', 'category__name']
     list_filter = ['category', 'muscle_groups']
     filter_horizontal = ('muscle_groups',)
@@ -48,7 +55,7 @@ class ExerciseAdmin(admin.ModelAdmin):
 
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'start_date', 'end_date', 'goal', 'difficulty_level']
+    list_display = ['name', 'start_date', 'end_date', 'goal', 'difficulty_level', 'duration']
     search_fields = ['name']
 
 
@@ -57,6 +64,7 @@ class LoggedWorkoutAdmin(admin.ModelAdmin):
     list_display = ['user', 'workout', 'date_logged', 'duration_minutes', 'repetitions', 'sets']
     search_fields = ['user__username', 'workout__name']
     list_filter = ['workout', 'user', 'date_logged']
+    fields = ('user', 'workout', 'date_logged', 'duration_minutes', 'repetitions', 'sets', 'comment')  # Dodajemy pola
 
 
 @admin.register(PersonalRecord)
@@ -122,3 +130,36 @@ class UserSessionAdmin(admin.ModelAdmin):
     list_display = ['user', 'session_key', 'created_at', 'expired_at']
     search_fields = ['user__username', 'session_key']
     list_filter = ['created_at', 'expired_at']
+
+@admin.register(WorkoutExercise)
+class WorkoutExerciseAdmin(admin.ModelAdmin):
+    list_display = ['workout', 'exercise', 'duration_minutes', 'repetitions', 'sets', 'weight']
+
+# @admin.register(ChallengeExercise)
+# class ChallengeExerciseAdmin(admin.ModelAdmin):
+#     list_display = ['challenge', 'exercise', 'duration_minutes', 'repetitions', 'sets', 'weight']
+
+@admin.register(LoggedWorkoutExercise)
+class LoggedWorkoutExerciseAdmin(admin.ModelAdmin):
+    list_display = ['user', 'workout_exercise', 'duration_minutes', 'repetitions', 'sets', 'weight']
+    search_fields = ['user__username', 'workout_exercise__exercise__name']
+    list_filter = ['workout_exercise__workout', 'user']
+    fields = ('user', 'workout_exercise', 'duration_minutes', 'repetitions', 'sets', 'weight')
+
+@admin.register(UserWorkout)
+class UserWorkoutAdmin(admin.ModelAdmin):
+    list_display = ('user', 'workout', 'added_at')  # zamiast 'date_assigned'
+
+@admin.register(UserChallenge)
+class UserChallengeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'challenge', 'added_at')  # zamiast 'date_assigned'
+    #dodane 00:57
+    search_fields = ('user__username', 'challenge__name')
+    list_filter = ('added_at',)
+
+
+admin.site.register(ChallengeHistory)
+
+admin.site.register(WorkoutHistory)
+
+

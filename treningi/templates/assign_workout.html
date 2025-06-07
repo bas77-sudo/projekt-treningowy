@@ -1,0 +1,11 @@
+<!-- assign_workout.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Przypisz trening</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Przypisz</button>
+    </form>
+{% endblock %}
