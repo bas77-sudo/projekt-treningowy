@@ -12,7 +12,7 @@ function closeModal(modalId) {
 /*sumowanie punktow xp uzytkownika*/
 
 function getCSRF() {
-    return document.getElementById("csrf_token").value;
+    return document.getElementById("csrf_token").value; //pobiera csrf
 }
 
 function doWorkout(workoutId) {
@@ -25,15 +25,15 @@ function doWorkout(workoutId) {
         },
         body: new URLSearchParams({ workout_id: workoutId })
     })
-    .then(res => res.json())
+    .then(res => res.json())    //jesli server odbierze to konwersja na jsona
     .then(data => {
         if (data.success) {
-            document.querySelector(".level h4").textContent = `${data.new_score}/100 XP`;
+            document.querySelector(".level h4").textContent = `${data.new_score}/100 XP`;   //jesli poprawne to aktualizacja wyniku xp
         } else {
-            alert("err: " + data.error);
+            alert("err: " + data.error);    //err
         }
     })
-    .catch(err => console.error("web err:", err));
+    .catch(err => console.error("web err:", err));  //err
 }
 
 /*profil menu przy kliknieciu*/

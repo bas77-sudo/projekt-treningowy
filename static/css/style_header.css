@@ -69,7 +69,7 @@ header h1{
     cursor: pointer;
 }
 .main{
-    padding: 2em;
+    padding: 1em;
     position: relative;
 }
 
@@ -227,9 +227,20 @@ button:hover{
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #ff9720;
     /* margin: 2px 0; */
     font-size: 22px;
+}
+
+.sub-link-menu:first-of-type{
+    color: #ff9720;
+}
+
+.sub-link-menu:nth-of-type(2){
+    color: #1382e4;
+}
+
+.sub-link-menu:nth-of-type(3){
+    color: #080;
 }
 
 .sub-link-menu p{

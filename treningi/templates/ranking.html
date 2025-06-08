@@ -7,7 +7,6 @@
     {% csrf_token %}
 
     <link rel="stylesheet" href="{% static 'css/style_header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style_user_profile.css' %}">
     
     <title>LogMyFit</title>
     
@@ -18,7 +17,7 @@
             <a href="{% url 'home_page' %}">
             <img class="logo" src="{% static 'images/logo.png' %}" alt="Logo LogMyFit">
             </a>
-            <h1>LogMyFit - Profil użytkownika {{ user.username }}</h1>
+            <h1>LogMyFit - Ranking</h1>
          </div>
          <div class="right">
             <div class="streak">
@@ -56,47 +55,24 @@
          </div>
       </header>
     <div class="main">
-      <div class="stats">
-         <div class="user-stats">
-         <h3>Twoje statystyki:</h3>
-         <hr>
-         <p><strong>Wykonane treningi:</strong> {{ total_workouts }}</p>
-         <p><strong>Łączny czas treningów:</strong> {{ total_time_spent }} minut</p>
-         <p><strong>Spalone kalorie:</strong> {{ total_calories_burned }} kcal</p>
-      </div>
-      </div>
-
-        
-      <br>
-
-      <h1 class="page-title">Historia wykonanych treningów:</h1>
-        <ul class="history-ul">
-            {% for stat in workouts_history %}
-            <li class="history-li">
-               <div class="workout-container">
-                  <div class="workout-img-container">
-                     {% if stat.workout.image %}
-                     <img class="workout-img" src="{{ stat.workout.image.url }}" alt="{{ stat.workout.name }}" onclick="openModal('modal-{{ workout.id }}')">
-                     {% endif %}
-                  </div>
-                  <div class="workout-name">
-                     <h3>{{ stat.workout.name }}</h3>
-                     <hr>
-                     <div class="workout-info">
-                        <p>Poziom trudności: {{ stat.workout.difficulty_level }}</p>
-                        <p>Punkty: {{ stat.workout.score_xp }}</p>
-                        <p>Wykonane: {{ stat.workout_date }}</p>
-                     </div>
-                  </div>
-               </div>
-            </li>
-            {% empty %}
-               <p>Brak wykonanych treningów</p>
-            {% endfor %}
-        </ul>
-    </div>
-
-
+  
+        <table>
+            <tr>
+                <th>Miejsce</th>
+                <th>User</th>
+                <th>Punkty</th>
+            </tr>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.user_score_xp }} xp</td>
+                </tr>
+                {% endfor %}
+            </tbody>     
+        </table>
+    
 
    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
 

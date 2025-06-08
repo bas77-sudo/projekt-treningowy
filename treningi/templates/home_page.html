@@ -6,7 +6,6 @@
       {% load static %}
       {% csrf_token %}
 
-      <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
       <link rel="stylesheet" href="{% static 'css/style_home_page.css' %}">
       <link rel="stylesheet" href="{% static 'css/style_header.css' %}">
       <title>LogMyFit</title>
@@ -40,7 +39,7 @@
                               <p>Profil</p>
                               <span>></span>
                            </a>
-                           <a class="sub-link-menu" href="#">
+                           <a class="sub-link-menu" href="{% url 'ranking_page' %}">
                               <p>Ranking</p>
                               <span>></span>
                            </a>

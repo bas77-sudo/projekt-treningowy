@@ -91,8 +91,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'projekt_trening_db',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'nat',
+        'PASSWORD': 'teli3ena',
         'HOST': 'localhost',
         'PORT': '5432',
     }

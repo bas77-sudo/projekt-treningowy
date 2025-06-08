@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 def home_view(request):
     if request.user.is_authenticated:
-        return redirect('home_page') #zamianka 
+        return redirect('home_page')
 
     if request.method == 'POST':
         #form = AuthenticationForm(request, data=request.POST)
@@ -95,16 +95,14 @@ def do_workout(request):
                                      'error': 'user not authenticated'})
             #dodanie pkt xp
             user.user_score_xp += workout.score_xp
-            # user.workouts_history.add(workout)
             user.save()
-            #print(f"Nowa wartość XP: {user.user_score_xp}") #spr
 
             #dodaje do statystyk
             WorkoutStatistics.objects.create(
                 user=user,
                 workout=workout,
                 duration=workout.exercises.aggregate(models.Sum('duration_minutes'))['duration_minutes__sum'] or 0,
-                calories_burned=workout.score_xp * 5 #na razie mnozone przez score
+                calories_burned=workout.score_xp * 2 #na razie mnozone przez score
             )
 
             return JsonResponse({
@@ -125,22 +123,21 @@ def do_workout(request):
 #do strony profilu uzytkownika
 def user_profile_page_view(request):
     user = request.user
-    workouts_history = WorkoutStatistics.objects.filter(user=user).select_related('workout'). order_by('-workout_date')
-    #nowe
-    total_workouts = workouts_history.count()
-    total_time_spent = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('duration'))['duration__sum'] or 0
-    total_calories_burned = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('calories_burned'))['calories_burned__sum'] or 0
-    total_repetitions = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('repetitions'))['repetitions__sum'] or 0
-    total_sets = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('workout__exercises__sets'))['workout__exercises__sets__sum'] or 0
+    workouts_history = WorkoutStatistics.objects.filter(user=user).select_related('workout').order_by('-workout_date') #treningi w kolejnosci odwrotnej
+    #nowe statystyki
+    total_workouts = workouts_history.count() #zlicza treningi
+    total_time_spent = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('duration'))['duration__sum'] or 0  #sumuje czas wszystkich trenigow
+    total_calories_burned = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('calories_burned'))['calories_burned__sum'] or 0 #sumuje kalorie
     return render(request, 'user_profile_page.html', {'user': user, 
                                                       'workouts_history': workouts_history,
                                                       'total_workouts': total_workouts,
                                                         'total_time_spent': total_time_spent,
                                                         'total_calories_burned': total_calories_burned,
-                                                        'total_repetitions': total_repetitions,
-                                                        'total_sets': total_sets,})
-
-
+                                                        })
+#ranking uzytkownikow
+def ranking_view(request):
+    users = User.objects.all().order_by('-user_score_xp')
+    return render(request, 'ranking.html', {'users': users})
 # def login_view(request):
 #     if request.method == 'POST':
 #         form = CustomAuthenticationForm(request, data=request.POST)

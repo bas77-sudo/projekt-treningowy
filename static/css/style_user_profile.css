@@ -1,0 +1,130 @@
+.profile-name{
+    padding-bottom: 15px;
+    margin-left: 1.5em;
+
+}
+
+.page-title{
+    text-align: center;
+    padding: 15px 0;
+}
+
+.stats{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.user-stats{
+    padding: 15px 0;
+    text-align: center;
+    width: 600px;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-stats h3{
+    padding: 10px 0;
+}
+
+hr{
+   border: 0;
+   height: 1px; 
+   width: 95%;
+   background: #ccc;
+   margin: 5px auto;
+}
+
+.history-ul{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.history-li{
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 45px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 15px;
+    margin: 10px 50px 10px 0;
+    width: 100%;
+    max-width: 1000px;
+
+}
+
+.workout-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.workout-img-container{
+    margin-right: 15px;
+}
+
+.workout-name{
+    flex-grow: 1;
+}
+
+.workout-name h3{
+    font-size: 32px;
+    text-transform: capitalize;
+    margin-top: 15px;
+}
+
+.workout-info{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.workout-info p{
+    margin: 5px 0;
+}
+
+.workout-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 45px;
+}
+
+
+.workout-name h3{
+    text-align: center;
+    margin-bottom: auto;
+}
+
+.workout-info p{
+    padding: 15px;
+    border-radius: 45px;
+    color: #fff;
+    margin: 0 30px;
+}
+
+.workout-info p:first-of-type{
+    border: 2px solid #db7500;
+    background: #ff9720;
+}
+
+.workout-info p:nth-of-type(2){
+    border: 2px solid #1382e4;
+    background: #319fff;
+}
+
+.workout-info p:nth-of-type(3){
+    border: 2px solid rgb(12, 82, 12);
+    background: #080;
+}
+
+

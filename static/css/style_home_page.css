@@ -13,12 +13,13 @@
 }
 
 .workout-list{
-    background-color: #f9f9f9;
+    background-color: #fff;
     width: 500px;
     height: 600px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s ease;
+    border-radius: 15px;
 }
 
 .workout-list:hover{
