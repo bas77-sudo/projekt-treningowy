@@ -70,6 +70,7 @@ def login_view(request):
 
             # Jeśli konto jest aktywne, logujemy użytkownika
             login(request, user)
+            print("Zalogowano użytkownika")
             return redirect('home')  # Przekierowanie po udanym logowaniu
 
         else:  # Jeśli formularz nie jest poprawny
