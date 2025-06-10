@@ -52,7 +52,7 @@ class Exercise(models.Model):
     repetitions = models.PositiveIntegerField(null=True, blank=True)
     sets = models.PositiveIntegerField(null=True, blank=True)
     #image = models.ImageField(upload_to='media/exercises/', null=True, blank=True)
-    image = models.ImageField(upload_to='media/exercises/')
+    image = models.ImageField(upload_to='media/exercises/', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     weight = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, help_text="Podaj ciężar w kilogramach")
@@ -65,7 +65,7 @@ class Workout(models.Model):
     description = models.TextField()
     difficulty_level = models.ForeignKey(DifficultyLevel, on_delete=models.SET_NULL, null=True, blank=True)
     #image = models.ImageField(upload_to='media/workouts/', null=True, blank=True)
-    image = models.ImageField(upload_to='media/workouts/')
+    image = models.ImageField(upload_to='media/workouts/', null=True)
     exercises = models.ManyToManyField(Exercise, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     score_xp = models.IntegerField(null=True, blank=True)
