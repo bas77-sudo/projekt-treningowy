@@ -204,4 +204,5 @@ def ranking_view(request):
 
 def logout_view(request):
     logout(request)
+    print("Wylogowano użytkownika")
     return redirect('login')
