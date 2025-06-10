@@ -88,14 +88,7 @@ class WorkoutExerciseForm(forms.ModelForm):
     class Meta:
         model = WorkoutExercise
         fields = ['workout', 'exercise', 'duration_minutes', 'repetitions', 'sets', 'weight']
-
-# class ChallengeExerciseForm(forms.ModelForm):
-#     class Meta:
-#         model = ChallengeExercise
-#         fields = ['challenge', 'exercise', 'duration_minutes', 'repetitions', 'sets', 'weight']
-
-#dodane 20.20 12.05.2025
-
+        
 class UserWorkoutForm(forms.ModelForm):
     class Meta:
         model = UserWorkout
