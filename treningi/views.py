@@ -14,7 +14,7 @@ from .forms import CustomAuthenticationForm
 
 logger = logging.getLogger(__name__)
 
-logging.basicConfig(level=logging.INFO, filename="strona.log",filemode="w")
+logging.basicConfig(level=logging.INFO, filename="strona.log",filemode="a")
 
 def home_view(request):
     if request.user.is_authenticated:
@@ -53,6 +53,7 @@ def add_challenge(request):
 
             challenge.save()
             print("Dodano wyzwanie")
+            logging.info("Dodano wyzwanie")
             return redirect('challenge_list')
 
     else:
