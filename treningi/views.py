@@ -26,7 +26,7 @@ def home_view(request):
             return redirect('home')
     else:
         form = AuthenticationForm()
-
+        
     return render(request, 'users/login.html', {'form': form})
 
 def register_view(request):
@@ -50,11 +50,12 @@ def add_challenge(request):
             challenge = form.save(commit=False)
 
             challenge.save()
+            print("Dodano wyzwanie")
             return redirect('challenge_list')
 
     else:
         form = ChallengeForm()
-
+    
     return render(request, 'add_challenge.html', {'form': form})
 
 def login_view(request):
@@ -105,6 +106,7 @@ def do_workout(request):
                 calories_burned=workout.score_xp * 2 #na razie mnozone przez score
             )
 
+            print("Wykonano trening")
             return JsonResponse({
                 'success': True,
                 'new_score': user.user_score_xp
@@ -137,6 +139,7 @@ def user_profile_page_view(request):
 #ranking uzytkownikow
 def ranking_view(request):
     users = User.objects.all().order_by('-user_score_xp')
+    print("Wyświetlono ranking")
     return render(request, 'ranking.html', {'users': users})
 # def login_view(request):
 #     if request.method == 'POST':
