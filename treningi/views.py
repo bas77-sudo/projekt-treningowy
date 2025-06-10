@@ -14,6 +14,8 @@ from .forms import CustomAuthenticationForm
 
 logger = logging.getLogger(__name__)
 
+logging.basicConfig(level=logging.INFO, filename="strona.log",filemode="w")
+
 def home_view(request):
     if request.user.is_authenticated:
         return redirect('home_page')
@@ -71,6 +73,7 @@ def login_view(request):
             # Jeśli konto jest aktywne, logujemy użytkownika
             login(request, user)
             print("Zalogowano użytkownika")
+            logging.info("Zalogowano użytkownika")
             return redirect('home')  # Przekierowanie po udanym logowaniu
 
         else:  # Jeśli formularz nie jest poprawny
@@ -108,6 +111,7 @@ def do_workout(request):
             )
 
             print("Wykonano trening")
+            logging.info("Wykonano trening")
             return JsonResponse({
                 'success': True,
                 'new_score': user.user_score_xp
@@ -131,6 +135,9 @@ def user_profile_page_view(request):
     total_workouts = workouts_history.count() #zlicza treningi
     total_time_spent = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('duration'))['duration__sum'] or 0  #sumuje czas wszystkich trenigow
     total_calories_burned = WorkoutStatistics.objects.filter(user=user).aggregate(models.Sum('calories_burned'))['calories_burned__sum'] or 0 #sumuje kalorie
+
+    print("Wyświetlono profil")
+    logging.info("Wyświetlono profil")
     return render(request, 'user_profile_page.html', {'user': user, 
                                                       'workouts_history': workouts_history,
                                                       'total_workouts': total_workouts,
@@ -140,7 +147,9 @@ def user_profile_page_view(request):
 #ranking uzytkownikow
 def ranking_view(request):
     users = User.objects.all().order_by('-user_score_xp')
+
     print("Wyświetlono ranking")
+    logging.info("Wyświetlono ranking")
     return render(request, 'ranking.html', {'users': users})
 # def login_view(request):
 #     if request.method == 'POST':
@@ -205,4 +214,5 @@ def ranking_view(request):
 def logout_view(request):
     logout(request)
     print("Wylogowano użytkownika")
+    logging.info("Wylogowano użytkownika")
     return redirect('login')
