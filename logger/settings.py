@@ -52,16 +52,6 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'My API',
-    'DESCRIPTION': 'API documentation',
-    'VERSION': '1.0.0',
-}
-
 AUTH_USER_MODEL = 'treningi.User' #jest
 
 MIDDLEWARE = [
@@ -105,10 +95,12 @@ WSGI_APPLICATION = 'logger.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'localhost:1521/ORCLPDB1',
-        'USER': 'student2',
-        'PASSWORD': 'student2',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'projekt_trening_db',
+        'USER': 'postgres',
+        'PASSWORD': '1teli2ena',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
