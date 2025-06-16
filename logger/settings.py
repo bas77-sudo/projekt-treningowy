@@ -30,7 +30,7 @@ with open(os.path.join(BASE_DIR, "logger", "secret_key.txt")) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'django.h4ck3r404.com']
 
 
 # Application definition
@@ -43,12 +43,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'treningi',
+    'rest_framework_swagger',
+    'drf_spectacular',
     # AllAuth:
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
     # 'allauth.socialaccount.providers.google',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'My API',
+    'DESCRIPTION': 'API documentation',
+    'VERSION': '1.0.0',
+}
 
 AUTH_USER_MODEL = 'treningi.User' #jest
 
@@ -81,6 +93,10 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.eggs.Loader',
+)
+
 WSGI_APPLICATION = 'logger.wsgi.application'
 
 
@@ -89,12 +105,10 @@ WSGI_APPLICATION = 'logger.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projekt_trening_db',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'localhost:1521/ORCLPDB1',
+        'USER': 'student2',
+        'PASSWORD': 'student2',
     }
 }
 
@@ -160,7 +174,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/logout/'    #odblokowane powinno teraz przekiero
 CSRF_COOKIE_SECURE = False  # Tylko jeśli używasz HTTP, na HTTPS ustaw na True
 CSRF_COOKIE_HTTPONLY = True
 CSRF_USE_SESSIONS = True
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1'] #zeby ten server w koncu ruszyl
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost', 'http://django.h4ck3r404.com', 'https://django.h4ck3r404.com'] #zeby ten server w koncu ruszyl
 
 
 #do obrazkow 
