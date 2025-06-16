@@ -28,7 +28,7 @@ function doWorkout(workoutId) {
     .then(res => res.json())    //jesli server odbierze to konwersja na jsona
     .then(data => {
         if (data.success) {
-            document.querySelector(".level h4").textContent = `${data.new_score}/100 XP`;   //jesli poprawne to aktualizacja wyniku xp
+            document.querySelector(".level h4").textContent = `${data.new_score}/1000 XP`;   //jesli poprawne to aktualizacja wyniku xp
         } else {
             alert("err: " + data.error);    //err
         }
